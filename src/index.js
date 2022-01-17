@@ -1,17 +1,14 @@
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 require('./db/mongoose')
 
 const userRouter = require('./routers/users')
 const taskRouter = require('./routers/tasks')
 
-
-
 app.use(express.json())
 app.use(userRouter)
 app.use(taskRouter)
-
 
 //
 // Without middleware:  new request -> run route handle
@@ -22,14 +19,3 @@ app.use(taskRouter)
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 })
-
-const jwt = require('jsonwebtoken')
-const myFunction = async () => {
-  const authToken = jwt.sign({_id: 'abc123'}, 'thisismynewcourse')
-  console.log(`Tokjen: ${authToken}`)
-
-  const data = jwt.verify(authToken, 'thisismynewcourse')
-  console.log(data)
-}
-
-myFunction()
